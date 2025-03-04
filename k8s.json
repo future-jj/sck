@@ -1,0 +1,50 @@
+[
+    {
+        "id": "m-docs-home",
+        "url": "/docs/home/",
+        "text": " Documentation",
+        "children": [
+            {
+                "id": "m-docs-home-supported-doc-versions",
+                "url": "/docs/home/supported-doc-versions/",
+                "text": "Available Documentation Versions"
+            }
+        ]
+    },
+    {
+        "id": "m-docs-setup",
+        "url": "/docs/setup/",
+        "text": "Getting started",
+        "children": [
+            {
+                "id": "m-docs-setup-learning-environment",
+                "url": "/docs/setup/learning-environment/",
+                "text": "Learning environment"
+            },
+            {
+                "id": "m-docs-setup-production-environment",
+                "url": "/docs/setup/production-environment/",
+                "text": "Production environment",
+                "children": [
+                    {
+                        "id": "m-docs-setup-production-environment-container-runtimes",
+                        "url": "/docs/setup/production-environment/container-runtimes/",
+                        "text": "Container Runtimes"
+                    },
+                    {
+                        "id": "m-docs-home-supported-doc-versions",
+                        "url": "/docs/setup/production-environment/tools/",
+                        "text": "Installing Kubernetes with deployment tools",
+                        "children": [
+                            {
+                                "id": "m-docs-setup-production-environment-tools-kubeadm",
+                                "url": "/docs/setup/production-environment/tools/kubeadm/",
+                                "text": "Bootstrapping clusters with kubeadm"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
