@@ -2,6 +2,15 @@ from bs4 import BeautifulSoup
 import json
 import re
 
+# 将json 的
+# 将中国日报的数据存储到本地，搜狐新闻，微博新闻，等等都存储到本地
+# 整理出一系列时间背后的时间线
+
+# 英语学习
+# 锻炼身体
+# 构建知识库
+# 年薪达到三十万
+
 def parse_sidebar(html):
     # 创建BeautifulSoup解析器对象，使用html.parser作为解析引擎
     soup = BeautifulSoup(html, 'html.parser')

@@ -1,5 +1,6 @@
 import re
 from collections import defaultdict
+import time
 
 
 def reverse_words(str):
@@ -234,4 +235,95 @@ print("Short123", is_strong_password("Short123"))      # False（长度不足且
 # 输入：[1, 2, 2, 3, 3, 3] → 输出：[3]
 # 输入：[1, 1, 2, 2] → 输出：[1, 2]
 # 提示：结合字典统计和最大值查找。
+
+def find_modes(nums):
+    if not nums:
+        return []
+    counts = {}
+    first_occurrence = {}
+    for idx, num in enumerate(nums):
+        if num not in counts:
+            counts[num] = 1
+            first_occurrence[num] = idx
+        else:
+            counts[num] += 1
+    max_count = max(counts.values())
+    candidates = [num for num, cnt in counts.items() if cnt == max_count]
+    candidates.sort(key= lambda x: first_occurrence[x]) 
+    return candidates;
+
+# 测试示例
+print(find_modes([1, 2, 2, 3, 3, 3]))   # 输出：[3]
+print(find_modes([1, 1, 2, 2]))         # 输出：[1, 2]
+print(find_modes([2, 2, 1, 1, 3]))      # 输出：[2, 1]
+print(find_modes([1, 3, 3, 2, 2, 2]))   # 输出：[2]
+
+# 1. 动态参数处理器（*args 和 kwargs）
+# 题目：编写函数 dynamic_processor，接受任意数量的位置参数和关键字参数，返回一个字典：
+
+# 键 "positional"：值是所有位置参数的和（仅处理数值类型参数）
+
+# 键 "keyword"：值是所有关键字参数的值组成的列表（仅处理值为字符串的参数）
+# 示例：
+# 输入：dynamic_processor(1, 2, 'a', x='hello', y=3, z='world')
+# 输出：{'positional': 3, 'keyword': ['hello', 'world']}
+# 提示：需过滤非数值类型的位置参数和非字符串类型的关键字参数。
+
+def dynamic_processor(*args, **kwargs):
+    sum_pos = 0
+    keyword_list = []
+    # 处理位置参数，仅累加数值类型
+    for arg in args:
+        if isinstance(arg, (int, float)):
+            sum_pos += arg
+            
+    # 处理关键字参数: 仅保留值为字符串的参数
+    for value in kwargs.values():
+        if isinstance(value, str):
+            keyword_list.append(value)
+    return {'positional':sum_pos, 'keyword':keyword_list}
+result = dynamic_processor(1, 100, 'a', x='hello', y='3', z='world')
+print(result)  # {'positional': 3, 'keyword': ['hello', 'world']}
+
+
+# 2. 闭包实现计数器
+# 题目：用闭包实现一个计数器函数 create_counter()，每次调用返回的函数时，计数器值自增。支持初始化值和步长：
+# create_counter(init=0, step=1)：初始化值和步长
+# 示例：
+# counter = create_counter(init=5, step=2)
+# print(counter())  # 输出 5
+# print(counter())  # 输出 7
+# print(counter())  # 输出 9
+
+def create_counter(init = 0, step = 1):
+    current = init
+    def counter():
+        nonlocal current
+        result = current
+        current += step
+        return result
+    return counter
+
+counter = create_counter(init=5, step=2)
+
+print(counter())  # 输出 5 → current 更新为7
+print(counter())  # 输出 7 → current 更新为9
+print(counter())  # 输出 9 → current 更新为11
+
+def timer(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(f"{func.__name__} 耗时{end - start:.2f}s")
+        return result
+    return wrapper
+
+@timer
+def slow_function():
+    time.sleep(1)
+    
+slow_function()
+        
+ 
 
