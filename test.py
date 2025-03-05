@@ -310,20 +310,91 @@ print(counter())  # 输出 5 → current 更新为7
 print(counter())  # 输出 7 → current 更新为9
 print(counter())  # 输出 9 → current 更新为11
 
+# def timer(func):
+#     def wrapper(*args, **kwargs):
+#         start = time.time()
+#         result = func(*args, **kwargs)
+#         end = time.time()
+#         print(f"{func.__name__} 耗时{end - start:.2f}s")
+#         return result
+#     return wrapper
+
+# @timer
+# def slow_function():
+#     time.sleep(1)
+    
+# slow_function()
+        
+def repeat(num_times):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            for _ in range(num_times):
+                result = func(*args, **kwargs)
+            return result
+        return wrapper
+    return decorator
+
+@repeat(num_times=3)
+def greet(name):
+    print(f"Hello, {name}")
+    
+greet("alice")
+
+
+
 def timer(func):
+    start_time = 0
     def wrapper(*args, **kwargs):
-        start = time.time()
+        nonlocal start_time
+        start_time = time.time()
         result = func(*args, **kwargs)
-        end = time.time()
-        print(f"{func.__name__} 耗时{end - start:.2f}s")
+        end_time = time.time()
+        print(f"{func.__name__}耗时：{end_time - start_time:.2f}s")
         return result
     return wrapper
 
 @timer
 def slow_function():
     time.sleep(1)
-    
-slow_function()
-        
- 
 
+def create_click_hander(text):
+    count = 0
+    def on_click():
+        nonlocal count
+        print(f"按钮'{text}'被点击了{count + 1}次")
+        count += 1
+    return on_click
+
+button1 = create_click_hander("按钮1")
+button2 = create_click_hander("按钮2")
+
+button1()
+button1()
+button1()
+button2()
+
+
+def create_range_generator(start, end):
+    current = start
+    
+    def next_num():
+        nonlocal current
+        value = current
+        current += 1
+        return value
+    
+    def reset():
+        nonlocal current
+        current = start
+        
+    return next_num, reset
+
+next_num, reset = create_range_generator(6, 10)
+
+print(next_num())
+print(next_num())
+print(next_num())
+reset()
+print(next_num())
+    
+    
